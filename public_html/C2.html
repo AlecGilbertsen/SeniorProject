@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Upload File</title>
+      <!-- Specify the favicon -->
+      <link rel="icon" type="image/png" href="/1426963167.png">
+      <!-- Bootstrap CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <link rel="stylesheet" href="styles.css">
+   </head>
+   <body>
+      <nav class="navbar navbar-light">
+         <div class="container-fluid">
+            <a class="navbar-brand" href="/index.html" style="background-color: transparent; color: black; color: #741736; border-color: #741736;">
+            <img src="/1426963167.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            Home
+            </a>
+            <div class="center">
+               <button onclick="goBack()" style="background-color: #741736; border: none; color: white;">
+               Go Back
+               </button>
+            </div>
+         </div>
+      </nav>
+      <div class="center">
+         <h1>Submit a Sound or Image to Change C2</h1>
+         <form id="uploadForm">
+            <button id="primaryButton" class="btn btn-primary btn-lg" style="background-color: transparent; border: none; color: black;" role="button">
+            <label for="imageFile">Select Image:</label>
+            <input type="file" id="imageFile" name="imageFile" accept="image/*">
+            </button>
+            <br>
+            <button id="secondaryButton" class="btn btn-secondary btn-lg" style="background-color: transparent; border: none; color: black;" role="button">
+            <label for="soundFile">Select Sound:</label>
+            <input type="file" id="soundFile" name="soundFile" accept="audio/*">
+            </button>
+            <br>
+            <button type="button" style="background-color: #741736; border: none; color: white;" onclick="uploadFile()">Submit</button>
+            <div id="message"></div>
+         </form>
+      </div>
+      <!-- Option 1: Bootstrap Bundle with Popper -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+      <script>
+         function uploadFile() {
+             var imageFile = document.getElementById("imageFile").files[0];
+             var soundFile = document.getElementById("soundFile").files[0];
+         
+             if (imageFile || soundFile) {
+                 var formData = new FormData();
+                 formData.append("file", imageFile || soundFile);
+                 formData.append("name", "C2");
+         
+                 fetch("uploadMedia.php", {
+                     method: "POST",
+                     body: formData
+                 })
+                 .then(response => {
+                     if (!response.ok) {
+                         throw new Error("Upload failed.");
+                     }
+                     return response.text();
+                 })
+                 .then(data => {
+                     console.log(data); // Handle response
+                     document.getElementById("message").innerText = "Upload successful!";
+                    setTimeout(function() {
+                        window.history.back();
+                    }, 1000); // 1000 milliseconds = 1 seconds
+                 })
+                 .catch(error => {
+                     console.error(error);
+                     document.getElementById("message").innerText = "An error occurred during upload.";
+                 });
+             } else {
+                 console.error("No file selected.");
+                 document.getElementById("message").innerText = "No file selected.";
+             }
+         }
+         
+         function goBack() {
+              window.history.back();
+         }
+         // Get references to the buttons
+         const primaryButton = document.getElementById('primaryButton');
+         const secondaryButton = document.getElementById('secondaryButton');
+         
+         // Add event listeners to each button
+         primaryButton.addEventListener('click', () => {
+             // Enable the primary button and disable the secondary button
+             primaryButton.disabled = false;
+             secondaryButton.disabled = true;
+         });
+         secondaryButton.addEventListener('click', () => {
+             // Enable the secondary button and disable the primary button
+             secondaryButton.disabled = false;
+             primaryButton.disabled = true;
+         });
+      </script>
+   </body>
+</html>

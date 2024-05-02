@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="center">
+        <h1>Submit a Sound or Image</h1>
+        <form id="uploadForm">
+            <label for="file">Select Image:</label>
+            <input type="file" id="imageFile" name="imageFile" accept="image/*">
+            <br>
+            <label for="file">Select Sound:</label>
+            <input type="file" id="soundFile" name="soundFile" accept="audio/*">
+            <br>
+            <button type="button" onclick="uploadFile()">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+
+<script>
+    function uploadFile() {
+        var imageFile = document.getElementById("imageFile").files[0];
+        var soundFile = document.getElementById("soundFile").files[0];
+
+        if (imageFile) {
+            uploadToServer(imageFile);
+        }
+        if (soundFile) {
+            uploadToServer(soundFile);
+        }
+    }
+
+    function uploadToServer(file) {
+        var formData = new FormData();
+        formData.append("file", file);
+
+        fetch("upload.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Upload failed.");
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log(data); // Handle response
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+</script>
