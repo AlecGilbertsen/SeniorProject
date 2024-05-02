@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 1</title>
+    <!-- Specify the favicon -->
+    <link rel="icon" type="image/png" href="/1426963167.png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        #mediaContainer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #greenBox {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: green;
+            width: 25vh;
+            height: 25vh;
+            display: none;
+            cursor: pointer;
+        }
+        #whiteBox {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            width: 25vh;
+            height: 25vh;
+            display: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/index.html" style="background-color: transparent; color: black;  color: #741736; border-color: #741736;">
+                <img src="/1426963167.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                Home
+            </a>
+        </div>
+    </nav>
+    <div id="mediaContainer"></div>
+    <div id="greenBox"></div>
+    <div id="whiteBox"></div>
+
+    <script src="https://www.vbl-s-mts.com/mediaFunctions.js"></script>
+    <script src="https://www.vbl-s-mts.com/getUID.js"></script>
+    <script src="https://www.vbl-s-mts.com/timeKeeper.js"></script>
+    <script>
+        sessionId = getUserId()
+        // Call the function to retrieve media when the page is loaded
+        window.onload = function() {
+            //time Elapsed in this test, this is what moves us forward
+            var timeElapsed = 0;
+            //initialize this stuff on the start of a new block
+            var clicked = false;
+            //how many questions are right
+            var correct = 0;
+            //variables needed for blocks
+            var startTime, endTime, firstMedia, SecondMedia, blockName, matched, reminderCheck;
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "B1";
+                secondMedia = "A1"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 0;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            
+            //end of where you need to copy too
+            
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "C3";
+                secondMedia = "A1"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 0;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "B3";
+                secondMedia = "A2"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 0;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "B3";
+                secondMedia = "A3"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 1;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "C2";
+                secondMedia = "A3"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 0;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "C1";
+                secondMedia = "A1"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 1;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "C1";
+                secondMedia = "A3"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 0;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "C3";
+                secondMedia = "A3"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 1;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "B2";
+                secondMedia = "A2"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 1;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "B1";
+                secondMedia = "A2"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 0;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "C1";
+                secondMedia = "A1"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 1;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "B1";
+                secondMedia = "A3"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 0;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "B2";
+                secondMedia = "A1"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 0;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "C2";
+                secondMedia = "A2"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 1;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "B2";
+                secondMedia = "A3"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 0;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "B3";
+                secondMedia = "A3"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 1;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "B3";
+                secondMedia = "A1"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 0;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "B2";
+                secondMedia = "A2"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 1;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 1;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "C1";
+                secondMedia = "A2"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 0;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "C3";
+                secondMedia = "A3"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 1;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "C2";
+                secondMedia = "A2"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 1;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 1;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "C2";
+                secondMedia = "A1"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 0;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "B1";
+                secondMedia = "A1"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 1;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+            }, timeElapsed += 6000);
+            
+            //end of where you need to copy too
+            
+            
+            //copy this it starts here
+            setTimeout(function(){
+                //change these media variables to change all this test for this block
+                firstMedia = "C3";
+                secondMedia = "A2"
+                //block name is always block# change # as needed 
+                blockName = "block2"
+                //matched is either 1 or 0 if these stimuli match
+                matched = 0;
+                //sets if a reminder needs to be issued (1 for true/ 0 for false)
+                reminderCheck = 0;
+                getfirstMedia(firstMedia, secondMedia);
+            }, timeElapsed);
+            timeElapsed+=20000;
+            setTimeout(function()
+            {
+                //what time did this question start
+                startTime = performance.now();
+                document.getElementById("whiteBox").onclick = function() {
+                    endTime = performance.now()
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendData(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 1, (1 - (matched ^ 1)));
+                    //answer was right incremement matched
+                    if((1 - (matched ^ 1)) == 1)
+                    {
+                        correct++;
+                    }
+                };
+                //hides everything
+                document.getElementById("mediaContainer").style.display = "none";
+                document.getElementById("greenBox").style.display = "none";
+                document.getElementById("whiteBox").style.display = "block";
+            }, timeElapsed);
+            
+            // After 4 seconds, call Reminder function
+            setTimeout(function() {
+                Reminder();
+            }, timeElapsed += 4000);
+            
+            setTimeout(function() {
+                document.getElementById("whiteBox").style.display = "none";
+                if(clicked == false)
+                {
+                    //sendDataNoClick(BlockName, SessionID, StimA, StimB, PhaseName, Matched, Comptime, UserGuess, Result)
+                    clicked = sendDataNoClick(blockName, sessionId, firstMedia, secondMedia, "Sym", matched, (Math.round((endTime-startTime) / 1000)/10) , 0,(1 - (matched ^ 0)));
+                    //check for correctness
+                    if(matched == 0)
+                    {
+                        correct++;
+                    }
+                }
+                else;
+                console.log(correct);
+                clicked = false;
+                startTime = 0;
+                endTime = 0;
+                timeElapsed+=2500;
+                SymmetryPass(correct/24);
+            }, timeElapsed += 6000);
+            
+            //end of where you need to copy too
+        };
+    </script>
+</body>
+</html>

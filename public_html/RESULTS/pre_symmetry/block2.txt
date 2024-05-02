@@ -1,0 +1,6 @@
+UserID: 977662340570141
+Phase: pre_symmetry
+Block: block2
+
+
+| StimA --- StimB --- UserGuess --- CompTime --- Result |

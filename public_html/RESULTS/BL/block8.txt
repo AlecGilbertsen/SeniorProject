@@ -1,0 +1,6 @@
+UserID: 977662340570141
+Phase: BL
+Block: block8
+
+
+| StimA --- StimB --- UserGuess --- CompTime --- Result |
