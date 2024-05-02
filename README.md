@@ -9,7 +9,7 @@ made in house to support the project so you shouldn't need anything other than a
 
 next you will need some hosting platform that can hold public_html this holds the entirety of the website, we used bluehost as it had support for
 our mysql database built in but any hosting platform should suffice, you could also use something like XAMPP if you want to host it locally
-this will come with myPHP admin which we used a lot to help with our database so your edxperience will be similar to ours.
+this will come with myPHP admin which we used a lot to help with our database so your experience will be similar to ours.
 
 next you will need a mysql database with 4 tables, those tables are SMSP_User, SMSP_Phase, SMSP_Block, soundAndImage_t
 there structure is in pictures below, lastly you will need to update all the php to have the correct database information
